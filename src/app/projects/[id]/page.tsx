@@ -1,5 +1,6 @@
 import { MapPin, Calendar, Users, Camera, ArrowLeft } from "lucide-react";
 import Link from "next/link";
+import Image from "next/image";
 import BeforeAfter from "@/components/ui/BeforeAfter";
 import ProjectActions from "./ProjectActions";
 import styles from "./page.module.css";
@@ -80,7 +81,13 @@ export default async function ProjectDetailsPage({ params }: { params: Promise<{
                     <span>{new Date(media.createdAt).toLocaleDateString()}</span>
                   </div>
                   <div className={styles.timelineMedia}>
-                    <img src={media.url} alt="Project Media" style={{ width: '100%', height: 'auto', borderRadius: '8px', marginTop: '1rem' }} />
+                    <Image 
+                      src={media.url} 
+                      alt="Project Media" 
+                      width={800}
+                      height={600}
+                      style={{ width: '100%', height: 'auto', borderRadius: '8px', marginTop: '1rem' }} 
+                    />
                   </div>
                 </div>
               </div>

@@ -1,6 +1,7 @@
 "use client";
 
-import { useState, useRef, useEffect, MouseEvent, TouchEvent } from "react";
+import { useState, useRef, useEffect, MouseEvent as ReactMouseEvent, TouchEvent as ReactTouchEvent } from "react";
+import Image from "next/image";
 import styles from "./BeforeAfter.module.css";
 
 interface BeforeAfterProps {
@@ -23,11 +24,11 @@ export default function BeforeAfter({ beforeImage, afterImage }: BeforeAfterProp
     setSliderPosition(percent);
   };
 
-  const handleMouseMove = (e: MouseEvent) => {
+  const handleMouseMove = (e: ReactMouseEvent) => {
     handleMove(e.clientX);
   };
 
-  const handleTouchMove = (e: TouchEvent) => {
+  const handleTouchMove = (e: ReactTouchEvent) => {
     handleMove(e.touches[0].clientX);
   };
 
@@ -45,6 +46,14 @@ export default function BeforeAfter({ beforeImage, afterImage }: BeforeAfterProp
     };
   }, [isDragging]);
 
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === 'ArrowLeft') {
+      setSliderPosition((prev) => Math.max(0, prev - 5));
+    } else if (e.key === 'ArrowRight') {
+      setSliderPosition((prev) => Math.min(100, prev + 5));
+    }
+  };
+
   return (
     <div 
       className={styles.container} 
@@ -53,27 +62,47 @@ export default function BeforeAfter({ beforeImage, afterImage }: BeforeAfterProp
       onTouchMove={handleTouchMove}
       onMouseLeave={() => setIsDragging(false)}
     >
-      {/* After Image (Background) */}
-      {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img src={afterImage} alt="After" className={styles.image} draggable={false} />
+      <Image 
+        src={afterImage} 
+        alt="After project completion" 
+        fill
+        style={{ objectFit: 'cover' }}
+        className={styles.image} 
+        draggable={false}
+        sizes="(max-width: 768px) 100vw, 800px"
+      />
       
-      {/* Before Image (Foreground, clipped) */}
       <div 
         className={styles.beforeContainer} 
         style={{ clipPath: `polygon(0 0, ${sliderPosition}% 0, ${sliderPosition}% 100%, 0 100%)` }}
       >
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src={beforeImage} alt="Before" className={styles.image} draggable={false} />
+        <Image 
+          src={beforeImage} 
+          alt="Before project completion" 
+          fill
+          style={{ objectFit: 'cover' }}
+          className={styles.image} 
+          draggable={false} 
+          sizes="(max-width: 768px) 100vw, 800px"
+        />
       </div>
 
-      {/* Slider Line & Handle */}
       <div 
         className={styles.slider} 
         style={{ left: `${sliderPosition}%` }}
         onMouseDown={() => setIsDragging(true)}
         onTouchStart={() => setIsDragging(true)}
       >
-        <div className={styles.sliderHandle}>
+        <div 
+          className={styles.sliderHandle}
+          role="slider"
+          tabIndex={0}
+          aria-valuenow={Math.round(sliderPosition)}
+          aria-valuemin={0}
+          aria-valuemax={100}
+          aria-label="Image comparison slider"
+          onKeyDown={handleKeyDown}
+        >
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
             <polyline points="15 18 9 12 15 6"></polyline>
           </svg>

@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import Image from 'next/image';
 import useSWR from 'swr';
 import { Camera, MapPin, Calendar, Activity, Images, Plus } from 'lucide-react';
 import { motion } from 'framer-motion';
@@ -114,10 +115,13 @@ export default function DashboardClient({ totalProjects, totalMedia, estimatedTa
                 <Link href={`/projects/${project.id}`} className={`glass-panel ${styles.projectCard}`}>
                   <div className={styles.projectImage}>
                     {project.media.length > 0 ? (
-                       <img 
+                       <Image 
                          src={project.media[0].url} 
                          alt={project.name} 
+                         fill
+                         style={{ objectFit: 'cover' }}
                          className={styles.realImage}
+                         sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                        />
                     ) : (
                       <div className={styles.projectImagePlaceholder}>

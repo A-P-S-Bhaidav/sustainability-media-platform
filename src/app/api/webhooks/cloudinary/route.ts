@@ -7,12 +7,21 @@ export async function POST(req: Request) {
     const body = await req.text();
     const signature = req.headers.get("x-cld-signature");
     const timestamp = req.headers.get("x-cld-timestamp");
+    const secret = process.env.CLOUDINARY_API_SECRET;
 
-    // In a real enterprise app, we STRICTLY verify the signature
-    // using process.env.CLOUDINARY_API_SECRET
-    // if (!verifyCloudinarySignature(body, signature, timestamp)) {
-    //   return NextResponse.json({ error: "Invalid signature" }, { status: 401 });
-    // }
+    if (!signature || !timestamp || !secret) {
+      return NextResponse.json({ error: "Missing signature or secret" }, { status: 401 });
+    }
+
+    // Cloudinary signature validation: SHA-1(body + timestamp + secret)
+    const expectedSignature = crypto
+      .createHash("sha1")
+      .update(body + timestamp + secret)
+      .digest("hex");
+
+    if (signature !== expectedSignature) {
+      return NextResponse.json({ error: "Invalid signature" }, { status: 401 });
+    }
 
     const data = JSON.parse(body);
 
