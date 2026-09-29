@@ -1,20 +1,21 @@
 import { NextResponse } from 'next/server';
-import type { NextRequest } from 'next/server';
+import NextAuth from 'next-auth';
+import authConfig from './auth.config';
+
+const { auth } = NextAuth(authConfig);
 
 // Simple in-memory rate limiting map for Edge Middleware
-// Note: In a real Vercel Edge environment, this Map resets when the lambda scales. 
-// For a true 100/100 enterprise environment, this would connect to Upstash Redis.
 const rateLimitMap = new Map<string, { count: number; lastReset: number }>();
 const RATE_LIMIT = 50; // Max requests per 10 seconds per IP
 const TIME_WINDOW = 10000;
 
-export function middleware(request: NextRequest) {
-  const ip = request.headers.get('x-forwarded-for') || 'anonymous';
-  const now = Date.now();
-
-  const isApi = request.nextUrl.pathname.startsWith('/api/');
+export default auth((req) => {
+  const isApi = req.nextUrl.pathname.startsWith('/api/');
   
+  // 1. Rate Limiting Logic (Only for APIs)
   if (isApi) {
+    const ip = req.headers.get('x-forwarded-for') || 'anonymous';
+    const now = Date.now();
     let limitData = rateLimitMap.get(ip);
 
     if (!limitData) {
@@ -37,9 +38,30 @@ export function middleware(request: NextRequest) {
     }
   }
 
-  return NextResponse.next();
-}
+  // 2. Auth Logic
+  const isLoggedIn = !!req.auth;
+  const isAuthPage = req.nextUrl.pathname === '/';
+  
+  if (isAuthPage) {
+    if (isLoggedIn) {
+      return NextResponse.redirect(new URL('/dashboard', req.nextUrl));
+    }
+    return null;
+  }
+
+  // Next.js API routes or webhooks will handle their own auth internally. 
+  // We just let them pass through the middleware.
+  if (isApi) {
+    return null;
+  }
+
+  if (!isLoggedIn) {
+    return NextResponse.redirect(new URL('/', req.nextUrl));
+  }
+  
+  return null;
+});
 
 export const config = {
-  matcher: ['/api/:path*'],
+  matcher: ['/((?!_next/static|_next/image|favicon.ico).*)'],
 };
