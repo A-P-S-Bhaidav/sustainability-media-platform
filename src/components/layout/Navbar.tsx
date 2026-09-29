@@ -3,25 +3,25 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { Camera, Menu, X, User } from 'lucide-react';
 import { usePathname } from 'next/navigation';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence, useScroll, useMotionValueEvent } from 'framer-motion';
 import styles from './Navbar.module.css';
 
 export default function Navbar() {
   const pathname = usePathname();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
-
   // Hide Navbar completely on the landing page
   if (pathname === '/') return null;
 
-  // Handle scroll effect for glassmorphism
-  useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 10);
-    };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  const { scrollY } = useScroll();
+  const [scrolled, setScrolled] = useState(false);
+
+  useMotionValueEvent(scrollY, "change", (latest) => {
+    if (latest > 10 && !scrolled) {
+      setScrolled(true);
+    } else if (latest <= 10 && scrolled) {
+      setScrolled(false);
+    }
+  });
 
   const navLinks = [
     { name: 'Dashboard', path: '/dashboard' },

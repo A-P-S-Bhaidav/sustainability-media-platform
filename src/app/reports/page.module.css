@@ -1,18 +1,27 @@
 .container {
-  padding: var(--space-6) var(--space-8);
-  max-width: var(--max-width-content);
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  max-width: 1440px;
+  width: 100%;
   margin: 0 auto;
+  padding: var(--space-6);
+  gap: var(--space-8);
 }
 
 .header {
-  margin-bottom: var(--space-8);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  margin-bottom: var(--space-4);
 }
 
 .title {
-  font-size: 2.25rem;
+  font-size: 2.5rem;
   font-weight: 700;
-  letter-spacing: -1px;
-  margin-bottom: var(--space-2);
+  background: linear-gradient(135deg, #ffffff 0%, #a0aebc 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 .subtitle {
@@ -20,110 +29,113 @@
   font-size: 1.125rem;
 }
 
-.actions {
-  margin-bottom: var(--space-10);
-}
-
-.generateButton {
-  background: var(--color-accent-teal);
-  color: var(--color-bg-base);
-  border: none;
-  padding: var(--space-4) var(--space-6);
-  border-radius: var(--radius-lg);
-  font-size: 1.125rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  box-shadow: var(--glow-teal);
-}
-
-.generateButton:hover:not(:disabled) {
-  background: var(--color-accent-teal-hover);
-  transform: translateY(-2px);
-  box-shadow: var(--glow-teal-strong);
-}
-
-.generateButton:disabled {
-  opacity: 0.7;
-  cursor: not-allowed;
-  animation: pulse 2s infinite;
-}
-
-@keyframes pulse {
-  0% { opacity: 0.7; }
-  50% { opacity: 0.9; }
-  100% { opacity: 0.7; }
-}
-
-.reportsGrid {
+.metricsGrid {
   display: grid;
-  grid-template-columns: 1fr;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: var(--space-6);
+}
+
+.metricCard {
+  background: var(--color-bg-elevated);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  padding: var(--space-6);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  position: relative;
+  overflow: hidden;
+}
+
+.metricCard::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background: linear-gradient(90deg, var(--color-accent-teal) 0%, var(--color-accent-blue) 100%);
+  opacity: 0.5;
+}
+
+.metricHeader {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  color: var(--color-text-secondary);
+  font-weight: 500;
+}
+
+.metricValue {
+  font-size: 3.5rem;
+  font-weight: 700;
+  color: var(--color-text-primary);
+  line-height: 1;
+}
+
+.chartSection {
+  background: var(--color-bg-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  padding: var(--space-6);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+}
+
+.chartTitle {
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.progressContainer {
+  display: flex;
+  flex-direction: column;
   gap: var(--space-4);
 }
 
-.reportCard {
+.progressItem {
   display: flex;
-  align-items: center;
-  padding: var(--space-5) var(--space-6);
-  border-radius: var(--radius-lg);
-  gap: var(--space-6);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  flex-direction: column;
+  gap: var(--space-2);
 }
 
-.reportCard:hover {
-  transform: translateX(4px);
-  border-color: var(--color-accent-teal);
-}
-
-.reportIcon {
-  background: rgba(0, 240, 192, 0.1);
-  padding: var(--space-4);
-  border-radius: var(--radius-md);
+.progressLabel {
   display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.reportCard:nth-child(2) .reportIcon {
-  background: rgba(14, 165, 233, 0.1);
-}
-
-.reportContent {
-  flex: 1;
-}
-
-.reportTitle {
-  font-size: 1.25rem;
-  font-weight: 600;
-  margin-bottom: var(--space-1);
-}
-
-.reportMeta {
+  justify-content: space-between;
+  font-weight: 500;
+  font-size: 0.9375rem;
   color: var(--color-text-secondary);
-  font-size: 0.875rem;
 }
 
-.reportActions {
-  display: flex;
-  gap: var(--space-3);
+.progressBarTrack {
+  height: 12px;
+  background: var(--color-bg-base);
+  border-radius: var(--radius-full);
+  overflow: hidden;
+  position: relative;
 }
 
-.iconButton {
-  background: var(--color-bg-elevated);
-  border: 1px solid var(--color-border);
-  color: var(--color-text-secondary);
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  transition: all 0.2s ease;
+.progressBarFill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--color-accent-teal) 0%, var(--color-accent-blue) 100%);
+  border-radius: var(--radius-full);
+  position: relative;
 }
 
-.iconButton:hover {
-  background: var(--color-accent-teal);
-  color: var(--color-bg-base);
-  border-color: var(--color-accent-teal);
+.progressBarFill::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.2) 50%, rgba(255,255,255,0) 100%);
+  background-size: 200% 100%;
+  animation: shimmer 2s infinite linear;
+}
+
+@keyframes shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
 }
