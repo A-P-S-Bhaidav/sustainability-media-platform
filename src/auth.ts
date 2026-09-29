@@ -9,15 +9,20 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
     strategy: "jwt",
   },
   callbacks: {
-    jwt({ token, user }) {
+    async jwt({ token, user }) {
       if (user) {
         token.id = user.id;
+      }
+      // Failsafe for legacy tokens that didn't get user.id injected
+      if (!token.id && token.email) {
+        const dbUser = await prisma.user.findUnique({ where: { email: token.email }});
+        if (dbUser) token.id = dbUser.id;
       }
       return token;
     },
     session({ session, token }) {
       if (token && session.user) {
-        session.user.id = token.id as string;
+        session.user.id = (token.id as string) || (token.sub as string);
       }
       return session;
     }

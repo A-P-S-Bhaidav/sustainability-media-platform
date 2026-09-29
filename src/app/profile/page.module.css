@@ -1,0 +1,102 @@
+.container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  max-width: none;
+  width: 100%;
+  margin: 0 auto;
+  padding: var(--space-4);
+  gap: var(--space-8);
+}
+
+.header {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.title {
+  font-size: 2rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--color-text-primary);
+}
+
+.subtitle {
+  font-size: 1.125rem;
+  color: var(--color-text-secondary);
+}
+
+.profileCard {
+  max-width: 600px;
+  border-radius: var(--radius-lg);
+  padding: var(--space-6);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+}
+
+.avatarSection {
+  display: flex;
+  align-items: center;
+  gap: var(--space-6);
+}
+
+.avatar {
+  border-radius: var(--radius-full);
+  border: 2px solid var(--color-border);
+}
+
+.avatarPlaceholder {
+  width: 100px;
+  height: 100px;
+  border-radius: var(--radius-full);
+  background: var(--color-bg-elevated);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-text-muted);
+  border: 2px solid var(--color-border);
+}
+
+.userInfo h2 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: var(--space-2);
+}
+
+.emailBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  background: rgba(14, 165, 233, 0.1);
+  color: var(--color-accent-blue);
+  padding: var(--space-1) var(--space-3);
+  border-radius: var(--radius-full);
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.actions {
+  border-top: 1px solid var(--color-border-subtle);
+  padding-top: var(--space-6);
+}
+
+.signOutButton {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  background: rgba(239, 68, 68, 0.1);
+  color: #ef4444;
+  padding: var(--space-3) var(--space-6);
+  border-radius: var(--radius-md);
+  font-weight: 600;
+  font-size: 1rem;
+  transition: all 0.2s ease;
+  border: 1px solid rgba(239, 68, 68, 0.2);
+}
+
+.signOutButton:hover {
+  background: rgba(239, 68, 68, 0.2);
+  transform: translateY(-1px);
+}
