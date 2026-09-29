@@ -6,7 +6,7 @@ import styles from './OnboardingTutorial.module.css';
 
 const steps = [
   {
-    title: "Welcome to EcoLens! 🌱",
+    title: "Welcome to EcoLens!",
     content: "This platform helps your team track and visualize the real-world impact of your sustainability projects.",
     position: "center",
   },
