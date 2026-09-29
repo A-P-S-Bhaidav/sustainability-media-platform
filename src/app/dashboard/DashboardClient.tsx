@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import useSWR from 'swr';
 import { Camera, MapPin, Calendar, Activity, Images, Plus } from 'lucide-react';
 import { motion } from 'framer-motion';
 import styles from './page.module.css';
@@ -20,6 +21,8 @@ interface DashboardClientProps {
   projects: ProjectData[];
 }
 
+const fetcher = (url: string) => fetch(url).then(res => res.json());
+
 // Framer Motion variants
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -35,6 +38,14 @@ const itemVariants = {
 };
 
 export default function DashboardClient({ totalProjects, totalMedia, estimatedTags, projects }: DashboardClientProps) {
+  // Use SWR to poll for real-time updates every 5 seconds, starting with server-rendered data
+  const { data } = useSWR('/api/dashboard', fetcher, { 
+    fallbackData: { totalProjects, totalMedia, estimatedTags, projects },
+    refreshInterval: 5000 
+  });
+
+  const { totalProjects: cProjects, totalMedia: cMedia, estimatedTags: cTags, projects: cList } = data;
+
   return (
     <motion.div 
       className={styles.container}
@@ -59,21 +70,21 @@ export default function DashboardClient({ totalProjects, totalMedia, estimatedTa
             <Activity size={18} color="var(--color-accent-teal)" />
             Total Projects
           </div>
-          <div className={styles.statValue}>{totalProjects}</div>
+          <div className={styles.statValue}>{cProjects}</div>
         </div>
         <div className={`glass-panel ${styles.statCard}`}>
           <div className={styles.statHeader}>
             <Images size={18} color="var(--color-accent-blue)" />
             Media Assets
           </div>
-          <div className={styles.statValue}>{totalMedia}</div>
+          <div className={styles.statValue}>{cMedia}</div>
         </div>
         <div className={`glass-panel ${styles.statCard}`}>
           <div className={styles.statHeader}>
             <Camera size={18} color="var(--color-accent-teal)" />
             AI Tags Generated
           </div>
-          <div className={styles.statValue}>{estimatedTags}</div>
+          <div className={styles.statValue}>{cTags}</div>
         </div>
       </motion.section>
 
@@ -86,7 +97,7 @@ export default function DashboardClient({ totalProjects, totalMedia, estimatedTa
         </div>
         
         <motion.div className={styles.projectsGrid} variants={containerVariants}>
-          {projects.length === 0 ? (
+          {cList.length === 0 ? (
             <motion.div className={`glass-panel ${styles.emptyState}`} variants={itemVariants}>
               <div className={styles.emptyStateIcon}>
                 <Camera size={48} opacity={0.5} color="var(--color-accent-teal)" />
@@ -98,7 +109,7 @@ export default function DashboardClient({ totalProjects, totalMedia, estimatedTa
               </Link>
             </motion.div>
           ) : (
-            projects.map(project => (
+            cList.map((project: any) => (
               <motion.div key={project.id} variants={itemVariants}>
                 <Link href={`/projects/${project.id}`} className={`glass-panel ${styles.projectCard}`}>
                   <div className={styles.projectImage}>

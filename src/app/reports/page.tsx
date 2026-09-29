@@ -10,11 +10,24 @@ export default async function ReportsPage() {
 
   const userId = session.user.id;
 
-  const [totalProjects, totalMedia, beforeAfterMedia] = await Promise.all([
-    prisma.project.count({ where: { userId } }),
-    prisma.media.count({ where: { userId } }),
-    prisma.media.count({ where: { userId, isBeforeAfter: true } })
-  ]);
+  const mvResults = await prisma.$queryRaw<any[]>`
+    SELECT 
+      "totalProjects"::int, 
+      "totalMedia"::int, 
+      "totalImpactPairs"::int 
+    FROM "ProjectMetrics_MV" 
+    WHERE "userId" = ${userId}
+  `;
+
+  let totalProjects = 0;
+  let totalMedia = 0;
+  let beforeAfterMedia = 0;
+
+  if (mvResults && mvResults.length > 0) {
+    totalProjects = Number(mvResults[0].totalProjects) || 0;
+    totalMedia = Number(mvResults[0].totalMedia) || 0;
+    beforeAfterMedia = Number(mvResults[0].totalImpactPairs) || 0;
+  }
 
   const standardMedia = totalMedia - beforeAfterMedia;
 

@@ -10,13 +10,12 @@ export async function searchMedia(query: string) {
     return [];
   }
 
+  const formattedQuery = query.trim().split(/\s+/).join(' | ');
+
   const media = await prisma.media.findMany({
     where: {
       userId: session.user.id,
-      OR: [
-        { aiTags: { contains: query, mode: 'insensitive' } },
-        { project: { name: { contains: query, mode: 'insensitive' } } }
-      ]
+      aiTags: { search: formattedQuery }
     },
     include: {
       project: { select: { name: true } }
