@@ -1,0 +1,108 @@
+.container {
+  padding: var(--space-6) var(--space-8);
+  max-width: var(--max-width-content);
+  margin: 0 auto;
+}
+
+.header {
+  margin-bottom: var(--space-8);
+}
+
+.title {
+  font-size: 2.25rem;
+  font-weight: 700;
+  letter-spacing: -1px;
+  margin-bottom: var(--space-2);
+}
+
+.subtitle {
+  color: var(--color-text-secondary);
+  font-size: 1.125rem;
+}
+
+.uploadSection {
+  margin-bottom: var(--space-10);
+}
+
+.resultsSection {
+  margin-top: var(--space-8);
+  border-top: 1px solid var(--color-border);
+  padding-top: var(--space-8);
+}
+
+.sectionTitle {
+  font-size: 1.25rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  margin-bottom: var(--space-6);
+}
+
+.successIcon {
+  color: var(--color-accent-teal);
+}
+
+.assetGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: var(--space-6);
+}
+
+.assetCard {
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.assetPreview {
+  height: 200px;
+  background: var(--color-bg-base);
+}
+
+.assetPreview img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.assetInfo {
+  padding: var(--space-4);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.assetName {
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.assetFormat {
+  font-size: 0.875rem;
+  color: var(--color-text-secondary);
+}
+
+.tagsArea {
+  margin-top: var(--space-4);
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.aiBadge {
+  background: rgba(0, 240, 192, 0.1);
+  color: var(--color-accent-teal);
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 2px 8px;
+  border-radius: var(--radius-full);
+}
+
+.tagsHint {
+  font-size: 0.75rem;
+  color: var(--color-text-muted);
+}

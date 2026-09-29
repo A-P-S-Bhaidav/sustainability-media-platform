@@ -1,0 +1,46 @@
+.uploadArea {
+  width: 100%;
+  border: 2px dashed var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-8);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-3);
+  background: var(--color-bg-surface);
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.uploadArea:hover {
+  border-color: var(--color-accent-teal);
+  background: var(--color-bg-elevated);
+}
+
+.iconContainer {
+  margin-bottom: var(--space-2);
+  padding: var(--space-4);
+  background: rgba(0, 240, 192, 0.1);
+  border-radius: var(--radius-full);
+}
+
+.title {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: var(--color-text-primary);
+}
+
+.subtitle {
+  font-size: 0.875rem;
+  color: var(--color-text-secondary);
+}
+
+.aiNotice {
+  margin-top: var(--space-4);
+  font-size: 0.875rem;
+  color: var(--color-accent-blue);
+  background: rgba(14, 165, 233, 0.1);
+  padding: var(--space-2) var(--space-4);
+  border-radius: var(--radius-full);
+}

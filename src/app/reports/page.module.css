@@ -1,0 +1,129 @@
+.container {
+  padding: var(--space-6) var(--space-8);
+  max-width: var(--max-width-content);
+  margin: 0 auto;
+}
+
+.header {
+  margin-bottom: var(--space-8);
+}
+
+.title {
+  font-size: 2.25rem;
+  font-weight: 700;
+  letter-spacing: -1px;
+  margin-bottom: var(--space-2);
+}
+
+.subtitle {
+  color: var(--color-text-secondary);
+  font-size: 1.125rem;
+}
+
+.actions {
+  margin-bottom: var(--space-10);
+}
+
+.generateButton {
+  background: var(--color-accent-teal);
+  color: var(--color-bg-base);
+  border: none;
+  padding: var(--space-4) var(--space-6);
+  border-radius: var(--radius-lg);
+  font-size: 1.125rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: var(--glow-teal);
+}
+
+.generateButton:hover:not(:disabled) {
+  background: var(--color-accent-teal-hover);
+  transform: translateY(-2px);
+  box-shadow: var(--glow-teal-strong);
+}
+
+.generateButton:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% { opacity: 0.7; }
+  50% { opacity: 0.9; }
+  100% { opacity: 0.7; }
+}
+
+.reportsGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-4);
+}
+
+.reportCard {
+  display: flex;
+  align-items: center;
+  padding: var(--space-5) var(--space-6);
+  border-radius: var(--radius-lg);
+  gap: var(--space-6);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.reportCard:hover {
+  transform: translateX(4px);
+  border-color: var(--color-accent-teal);
+}
+
+.reportIcon {
+  background: rgba(0, 240, 192, 0.1);
+  padding: var(--space-4);
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.reportCard:nth-child(2) .reportIcon {
+  background: rgba(14, 165, 233, 0.1);
+}
+
+.reportContent {
+  flex: 1;
+}
+
+.reportTitle {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: var(--space-1);
+}
+
+.reportMeta {
+  color: var(--color-text-secondary);
+  font-size: 0.875rem;
+}
+
+.reportActions {
+  display: flex;
+  gap: var(--space-3);
+}
+
+.iconButton {
+  background: var(--color-bg-elevated);
+  border: 1px solid var(--color-border);
+  color: var(--color-text-secondary);
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.iconButton:hover {
+  background: var(--color-accent-teal);
+  color: var(--color-bg-base);
+  border-color: var(--color-accent-teal);
+}
