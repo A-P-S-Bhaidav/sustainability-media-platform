@@ -8,11 +8,18 @@ import styles from "./page.module.css";
 export default function UploadPage() {
   const [uploadedAssets, setUploadedAssets] = useState<any[]>([]);
 
-  const handleUploadSuccess = (result: any) => {
+  const handleUploadSuccess = async (result: any) => {
     setUploadedAssets((prev) => [...prev, result]);
     
-    // In a real app, we would also call our API to save to Prisma here.
-    // fetch('/api/media', { method: 'POST', body: JSON.stringify(result) })
+    try {
+      await fetch('/api/media', { 
+        method: 'POST', 
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(result) 
+      });
+    } catch (e) {
+      console.error("Failed to save media to db", e);
+    }
   };
 
   return (

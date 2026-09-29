@@ -1,6 +1,7 @@
 import { MapPin, Calendar, Users, Camera, ArrowLeft } from "lucide-react";
 import Link from "next/link";
 import BeforeAfter from "@/components/ui/BeforeAfter";
+import ProjectActions from "./ProjectActions";
 import styles from "./page.module.css";
 import { prisma } from "@/lib/db";
 import { notFound, redirect } from "next/navigation";
@@ -48,10 +49,12 @@ export default async function ProjectDetailsPage({ params }: { params: Promise<{
           <span className={styles.metaItem}><MapPin size={16} /> {project.location || 'Unknown'}</span>
           <span className={styles.metaItem}><Calendar size={16} /> {new Date(project.createdAt).toLocaleDateString()}</span>
         </div>
+        
+        <ProjectActions projectId={project.id} />
       </header>
 
       {beforeAfterPair && afterMedia && (
-        <section className={styles.section}>
+        <section className={styles.section} style={{ pageBreakInside: 'avoid' }}>
           <h2 className={styles.sectionTitle}>Impact Visualization: Before & After</h2>
           <div className={styles.beforeAfterWrapper}>
             <BeforeAfter 
