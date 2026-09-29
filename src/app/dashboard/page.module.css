@@ -1,19 +1,29 @@
 .container {
-  padding: var(--space-6) var(--space-8);
-  max-width: var(--max-width-content);
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  max-width: 1440px;
+  width: 100%;
   margin: 0 auto;
+  padding: var(--space-6) var(--space-6);
+  gap: var(--space-8);
 }
 
 .header {
-  margin-bottom: var(--space-8);
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  border-bottom: 1px solid var(--color-border-subtle);
+  padding-bottom: var(--space-4);
+  flex-wrap: wrap;
+  gap: var(--space-4);
 }
 
 .title {
   font-size: 2.5rem;
   font-weight: 700;
   letter-spacing: -1px;
-  margin-bottom: var(--space-2);
-  background: linear-gradient(to right, var(--color-text-primary), var(--color-accent-teal));
+  background: linear-gradient(135deg, #ffffff 0%, #a0aebc 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
@@ -21,28 +31,47 @@
 .subtitle {
   color: var(--color-text-secondary);
   font-size: 1.125rem;
+  margin-top: var(--space-2);
+}
+
+.createButton {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-3) var(--space-6);
+  background: var(--color-accent-teal);
+  color: var(--color-bg-base);
+  border-radius: var(--radius-full);
+  font-weight: 600;
+  box-shadow: var(--glow-teal);
+  transition: all 0.2s ease;
+}
+
+.createButton:hover {
+  background: var(--color-accent-teal-hover);
+  box-shadow: var(--glow-teal-strong);
+  transform: translateY(-2px);
 }
 
 .statsGrid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: var(--space-6);
-  margin-bottom: var(--space-10);
 }
 
 .statCard {
   padding: var(--space-6);
-  border-radius: var(--radius-lg);
+  border-radius: var(--radius-xl);
   display: flex;
   flex-direction: column;
-  gap: var(--space-2);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  gap: var(--space-4);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .statCard:hover {
-  transform: translateY(-2px);
-  box-shadow: var(--shadow-md);
-  border-color: var(--color-accent-teal);
+  transform: translateY(-4px);
+  box-shadow: var(--glow-teal);
+  border-color: rgba(0, 240, 192, 0.3);
 }
 
 .statHeader {
@@ -50,27 +79,26 @@
   align-items: center;
   gap: var(--space-3);
   color: var(--color-text-secondary);
-  font-size: 0.875rem;
   font-weight: 500;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
 }
 
 .statValue {
-  font-size: 2.25rem;
+  font-size: 3.5rem;
   font-weight: 700;
+  line-height: 1;
   color: var(--color-text-primary);
 }
 
 .section {
-  margin-bottom: var(--space-10);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
 }
 
 .sectionHeader {
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  margin-bottom: var(--space-6);
+  align-items: baseline;
 }
 
 .sectionTitle {
@@ -81,37 +109,93 @@
 .viewAll {
   color: var(--color-accent-teal);
   font-weight: 500;
-  font-size: 0.875rem;
+  transition: color 0.2s ease;
 }
 
 .viewAll:hover {
-  text-decoration: underline;
+  color: var(--color-accent-teal-hover);
 }
 
 .projectsGrid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
   gap: var(--space-6);
 }
 
-.projectCard {
-  border-radius: var(--radius-lg);
-  overflow: hidden;
+.emptyState {
+  grid-column: 1 / -1;
   display: flex;
   flex-direction: column;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-12) var(--space-6);
+  text-align: center;
+  border-radius: var(--radius-xl);
+  border: 1px dashed var(--color-border);
+  gap: var(--space-4);
+}
+
+.emptyStateIcon {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: rgba(0, 240, 192, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: var(--space-2);
+}
+
+.emptyState h3 {
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.emptyState p {
+  color: var(--color-text-secondary);
+  max-width: 400px;
+}
+
+.emptyStateButton {
+  margin-top: var(--space-4);
+  display: inline-flex;
+  padding: var(--space-3) var(--space-8);
+  background: var(--color-accent-teal);
+  color: var(--color-bg-base);
+  border-radius: var(--radius-md);
+  font-weight: 600;
+  box-shadow: var(--glow-teal);
+}
+
+.emptyStateButton:hover {
+  box-shadow: var(--glow-teal-strong);
+}
+
+.projectCard {
+  display: flex;
+  flex-direction: column;
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  transition: all 0.3s ease;
+  height: 100%;
 }
 
 .projectCard:hover {
   transform: translateY(-4px);
-  box-shadow: var(--shadow-lg);
-  border-color: var(--color-accent-teal);
+  border-color: rgba(0, 240, 192, 0.3);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
 }
 
 .projectImage {
-  height: 180px;
-  background: var(--color-bg-elevated);
+  height: 200px;
+  background: var(--color-bg-surface);
   position: relative;
+}
+
+.realImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 .projectImagePlaceholder {
@@ -120,7 +204,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  color: var(--color-text-muted);
+  background: linear-gradient(135deg, var(--color-bg-elevated) 0%, var(--color-bg-surface) 100%);
 }
 
 .projectContent {
@@ -128,41 +212,24 @@
   display: flex;
   flex-direction: column;
   gap: var(--space-3);
+  flex: 1;
 }
 
 .projectTitle {
-  font-size: 1.125rem;
+  font-size: 1.25rem;
   font-weight: 600;
 }
 
 .projectMeta {
   display: flex;
-  align-items: center;
   gap: var(--space-4);
   color: var(--color-text-secondary);
   font-size: 0.875rem;
+  margin-top: auto;
 }
 
 .metaItem {
   display: flex;
   align-items: center;
-  gap: var(--space-1);
-}
-
-.emptyState {
-  grid-column: 1 / -1;
-  padding: var(--space-10);
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: var(--space-4);
-  color: var(--color-text-secondary);
-}
-
-.realImage {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+  gap: var(--space-2);
 }
