@@ -1,30 +1,30 @@
-# EcoLens 🌿
+# EcoLens
 
-**EcoLens** is a next-generation sustainability platform designed to help teams track, visualize, and report the real-world impact of their environmental field projects. Powered by AI and secure enterprise-grade authentication, EcoLens automatically organizes media assets, extracts intelligent tags (like *reforestation*, *solar-panel*), and generates stunning before-and-after interactive comparisons.
+EcoLens is a next-generation sustainability platform designed to help teams track, visualize, and report the real-world impact of their environmental field projects. Powered by AI and secure enterprise-grade authentication, EcoLens automatically organizes media assets, extracts intelligent tags (like reforestation, solar-panel), and generates clear before-and-after interactive comparisons.
 
-## 🚀 Features
+## Features
 
-- **Real-Time Impact Dashboard**: Monitor total projects, media assets, and AI-generated tags dynamically.
-- **Interactive Comparisons**: Showcase the "before and after" of your sustainability efforts using interactive image sliders.
-- **AI Auto-Tagging**: Field media is automatically analyzed and tagged by AI, allowing for powerful discovery and semantic search.
-- **Secure by Default**: Built with NextAuth (Auth.js v5) and robust middleware to ensure your project data remains entirely secure and private.
-- **Edge-to-Edge Design**: A beautiful, modern, 100/100 UI designed for both professional aesthetics and maximum usability.
+- Real-Time Impact Dashboard: Monitor total projects, media assets, and AI-generated tags dynamically.
+- Interactive Comparisons: Showcase the before and after of your sustainability efforts using interactive image sliders.
+- AI Auto-Tagging: Field media is automatically analyzed and tagged by AI, allowing for powerful discovery and semantic search.
+- Secure by Default: Built with NextAuth (Auth.js v5) and robust middleware to ensure your project data remains entirely secure and private.
+- Edge-to-Edge Design: A minimal, modern, full-screen layout designed for both professional aesthetics and maximum usability.
 
-## 🛠️ Tech Stack
+## Tech Stack
 
-- **Framework**: [Next.js 15](https://nextjs.org/) (App Router)
-- **Language**: TypeScript
-- **Database**: PostgreSQL (hosted on [Neon](https://neon.tech/))
-- **ORM**: [Prisma](https://www.prisma.io/)
-- **Authentication**: [Auth.js v5](https://authjs.dev/) (Google OAuth)
-- **Styling**: Vanilla CSS Modules (Glassmorphism, CSS Variables, Full-Screen Layout)
-- **Icons**: [Lucide React](https://lucide.dev/)
+- Framework: Next.js 15 (App Router)
+- Language: TypeScript
+- Database: PostgreSQL (hosted on Neon)
+- ORM: Prisma
+- Authentication: Auth.js v5 (Google OAuth)
+- Styling: Vanilla CSS Modules (Glassmorphism, CSS Variables, Full-Screen Layout)
+- Icons: Lucide React
 
-## 🏁 Getting Started
+## Getting Started
 
 ### Prerequisites
 
-- Node.js 18+
+- Node.js 18 or later
 - A PostgreSQL database (e.g., Neon)
 - Google Cloud Console account (for OAuth credentials)
 
@@ -43,13 +43,13 @@ npm install
 
 ### 3. Setup Environment Variables
 
-Copy the example environment file and fill in your credentials:
+Create a .env file and fill in your credentials:
 
 ```bash
 cp .env.example .env
 ```
 
-Your `.env` file should look like this:
+Your .env file should look like this:
 ```env
 # Database
 DATABASE_URL="postgresql://user:password@host/db?sslmode=require"
@@ -78,19 +78,19 @@ npx prisma generate
 npm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open http://localhost:3000 with your browser to see the result.
 
-## 🚢 Deployment (Vercel)
+## Deployment (Vercel)
 
 EcoLens is optimized for deployment on Vercel.
 
 1. Push your code to GitHub.
 2. Import the project into Vercel.
-3. In the **Environment Variables** section, add your `DATABASE_URL`, `AUTH_SECRET`, `AUTH_URL`, `AUTH_GOOGLE_ID`, and `AUTH_GOOGLE_SECRET`.
-4. Ensure the `Install Command` runs `npm install` and the `Build Command` runs `npm run build`.
-   - *Note: Our `package.json` includes `postinstall: prisma generate` to automatically generate the Prisma client during Vercel builds.*
-5. Deploy!
+3. In the Environment Variables section, add your DATABASE_URL, AUTH_SECRET, AUTH_URL, AUTH_GOOGLE_ID, and AUTH_GOOGLE_SECRET.
+4. Ensure the Install Command runs npm install and the Build Command runs npm run build.
+   Note: Our package.json includes postinstall: prisma generate to automatically generate the Prisma client during Vercel builds.
+5. Deploy.
 
-## 📜 License
+## License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+This project is licensed under the MIT License - see the LICENSE file for details.
